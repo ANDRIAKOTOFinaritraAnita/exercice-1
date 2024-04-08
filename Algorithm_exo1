@@ -1,0 +1,55 @@
+si (c = "a+!ab" ou c = "!ab+a" ou c = "a + !ab" ou c = "!ab + a" ) Alors
+    afficher ("| a | !ab |a + !ab| \n ")
+                pour i de 7 à 9 faire 
+                      afficher ( tab [i])
+                      afficher (" | ")
+                         finpour
+                      afficher (" \n ")
+                 pour i de 7 à 9 faire 
+                      afficher ( tab [i])
+                      afficher (" | ")
+                         finpour
+                      afficher (" \n ")
+                  pour i de 4 à 6 faire 
+                      afficher ( tab [i])
+                      afficher ( " | ")
+                         finpour 
+                       afficher (" \n ")
+                   pour i de 10 à 12 faire 
+                        afficher ( tab [i])
+                        afficher (" | ")
+                          finpour
+ Afficher (" \n la première forme canonique est : f(a,b)= [a ET non(b)]OU[ a ET b]OU[non(a) ET b]")                                
+ Afficher (" \n\n la deuxième forme canonique est : f(a,b)= [aOUb]") 
+               sinon 
+                  si (c = "!ba+b" ou c = "b+!ba" ou c = "b + !ba" ou c = "!ba + b" ) Alors
+    afficher ("| b | !ba |b + !ba| \n ")
+                    pour i de 4 à 6 faire 
+                      afficher ( tab [i])
+                      afficher ( " | ")
+                         finpour 
+                     afficher (" \n ")
+                    
+                     pour i de 7 à 9 faire 
+                      afficher ( tab [i])
+                      afficher (" | ")
+                         finpour
+                      afficher (" \n ")
+                      
+                      pour i de 4 à 6 faire 
+                      afficher ( tab [i])
+                      afficher ( " | ")
+                         finpour 
+                     afficher (" \n ")
+                     
+                      pour i de 10 à 12 faire 
+                        afficher ( tab [i])
+                        afficher (" | ")
+                          finpour
+                      
+                            finsi    
+                      finsi   
+                finsi
+          finsi
+    finsi   
+Fin
