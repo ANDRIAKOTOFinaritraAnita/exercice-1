@@ -1,51 +1,67 @@
-def table_de_verite(fonction_logique):
-    print("Table de vérité :")
-    print("x | y | f(x, y)")
-    print("---------")
-    for x in [0, 1]:
-        for y in [0, 1]:
-            resultat = fonction_logique(x, y)
-            print(f"{x} | {y} | {resultat}")
-    print("---------")
+from itertools import product
 
-def premiere_forme_canonique(fonction_logique):
-    termes = []
-    for x in [0, 1]:
-        for y in [0, 1]:
-            if fonction_logique(x, y) == 1:
-                termes.append(f"(x{'\' ' if x == 0 else ''}y{'\' ' if y == 0 else ''})")
-    print("Première forme canonique :")
-    if len(termes) == 0:
-        print("1")
-    else:
-        print(" + ".join(termes))
 
-def deuxieme_forme_canonique(fonction_logique):
-    termes = []
-    for x in [0, 1]:
-        for y in [0, 1]:
-            if fonction_logique(x, y) == 0:
-                termes.append(f"(x{' ' if x == 0 else '\' '}+ y{' ' if y == 0 else '\' '})")
-    print("Deuxième forme canonique :")
-    if len(termes) == 0:
-        print("1")
-    else:
-        print(" * ".join(termes))
+def table_de_verite(variables, fonction):
+    """
+    Génère la table de vérité pour la fonction logique donnée avec les variables spécifiées.
+    """
+    n = len(variables)
+    table = list(product([0, 1], repeat=n))
 
-def principal():
-    # Demander à l'utilisateur d'entrer la fonction logique
-    fonction = input("Entrez la fonction logique (en utilisant les opérateurs and, or, not, et les variables x et y) : ")
-    try:
-        # Convertir la chaîne entrée en une fonction logique
-        fonction_logique = eval(f"lambda x, y: {fonction}")
-    except:
-        print("Erreur: Fonction logique invalide.")
-        return
+    print("Table de vérité:")
+    for row in table:
+        context = {variables[i]: row[i] for i in range(n)}
+        result = eval(fonction, {}, context)
+        print(" | ".join([str(x) for x in row]), "|", int(result))
+    return table
 
-    # Afficher les résultats
-    table_de_verite(fonction_logique)
-    premiere_forme_canonique(fonction_logique)
-    deuxieme_forme_canonique(fonction_logique)
 
-if __name__ == "__main__":
-    principal()
+def premiere_forme_canonique(variables, table):
+    """
+    Calcule et affiche la première forme canonique de la fonction logique donnée.
+    """
+    terms = []
+    for row in table:
+        if row[-1] == 1:
+            term = []
+            for i, val in enumerate(row[:-1]):
+                if val == 1:
+                    term.append(variables[i])
+                elif val == 0:
+                    term.append(f"~{variables[i]}")
+            terms.append(" & ".join(term))
+    expression = " | ".join(terms)
+    print("\nPremière forme canonique:")
+    print(expression)
+
+
+def deuxieme_forme_canonique(variables, table):
+    """
+    Calcule et affiche la deuxième forme canonique de la fonction logique donnée.
+    """
+    terms = []
+    for row in table:
+        if row[-1] == 0:
+            term = []
+            for i, val in enumerate(row[:-1]):
+                if val == 0:
+                    term.append(variables[i])
+                elif val == 1:
+                    term.append(f"~{variables[i]}")
+            terms.append(" | ".join(term))
+    expression = " & ".join(terms)
+    print("\nDeuxième forme canonique:")
+    print(expression)
+
+
+# Demande à l'utilisateur de saisir la fonction logique et les variables
+fonction_logique = input("Entrez la fonction logique en utilisant 'and', 'or' et 'not': ")
+variables = input("Entrez les noms des variables séparées par des espaces: ").split()
+
+# Générer et afficher la table de vérité
+table = table_de_verite(variables, fonction_logique)
+
+# Calculer et afficher les formes canoniques
+premiere_forme_canonique(variables, table)
+deuxieme_forme_canonique(variables, table)
+
