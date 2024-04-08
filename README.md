@@ -1,1 +1,1 @@
-ANDRIAKOTO_Finaritra_Anita_Exo1_L1_Mathematiques_Informatique
+ANDRIAKOTO_Finaritra_Anita_L1_Mathematiques_Informatique_Exo1
